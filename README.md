@@ -114,4 +114,5 @@ To get started with Bevy, you'll need the Rust toolchain installed.
     ```
 
 ## 📜 License
+
 This project is dual-licensed under both [MIT License](./LICENSE-MIT) and [Apache License, Version 2.0](./LICENSE-APACHE). You may choose either license to use this software.
