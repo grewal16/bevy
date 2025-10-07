@@ -1,6 +1,6 @@
 # 🚀 Bevy Engine
 
-<p align="center"><img src="./assets/branding/banner.png" alt="Bevy Engine Logo" width="500"></p>
+<p align="center"><img src="./assets/branding/banner.png" alt="Bevy Engine Banner" width="500"></p>
 
 <p align="center">
   <a href="https://github.com/grewal16/bevy/stargazers"><img src="https://img.shields.io/github/stars/grewal16/bevy?style=for-the-badge" alt="GitHub stars"></a>
@@ -10,121 +10,84 @@
 </p>
 
 ## Short Description
-The Bevy Engine is a refreshingly simple and powerful data-driven game engine built in Rust. Designed for blazing-fast development and unparalleled flexibility, Bevy offers a complete suite of tools for 2D and 3D game creation, leveraging a modern Entity Component System (ECS) architecture. Whether you're a seasoned game developer or new to Rust, Bevy empowers you to build ambitious projects with ease.
+Bevy is a refreshingly simple yet powerful data-driven game engine built in Rust. Designed for performance, modularity, and rapid development, Bevy empowers developers to create ambitious 2D and 3D games and applications with ease, leveraging a modern Entity Component System (ECS) architecture.
 
 ## ✨ Key Features
-*   **Data-Driven ECS:** A highly performant and flexible Entity Component System for managing game state.
-*   **Modular & Extensible:** Built with a plugin-based architecture, allowing you to easily add or swap features.
-*   **Stunning 2D & 3D Graphics:** Comprehensive rendering capabilities including Physically Based Rendering (PBR), advanced lighting (ambient, directional, point, spot), real-time shadows, post-processing effects (Bloom, Depth of Field, SSAO, SSR, TAA), and volumetric fog.
-*   **Cross-Platform Support:** Deploy your games to desktop, Android, and WebAssembly (WASM).
-*   **Rich Input Handling:** Support for keyboard, mouse, touch, and gamepad inputs, including rumble feedback.
-*   **Powerful UI System:** Flexible UI layout powered by a flexbox-like system, complete with gradients, interactive widgets, and accessibility features.
-*   **Sophisticated Animation:** Advanced animation graphs, skeletal animation, morph targets, and easing functions for dynamic motion.
-*   **Robust Asset Pipeline:** Streamlined asset loading, hot-reloading for rapid iteration, and custom asset processors for complex data.
-*   **Integrated Dev Tools:** FPS overlay, comprehensive diagnostics, and CI testing utilities to keep development smooth.
-*   **Advanced Math Primitives:** Extensive 2D/3D math library including bounding volumes, cubic splines, and raycasting.
+*   **ECS First:** A highly optimized, parallel-first Entity Component System forms the core, ensuring maximum performance and flexible architecture.
+*   **2D & 3D Rendering:** Comprehensive rendering capabilities for both 2D sprites and complex 3D scenes, including advanced features like PBR, volumetric fog, and post-processing effects (Bloom, SSAO, SSR).
+*   **Powerful Animation:** Built-in animation systems supporting skeletal animation, morph targets, and flexible animation graphs for dynamic in-game elements.
+*   **Flexible UI System:** A declarative UI framework for building responsive user interfaces, supporting layout, gradients, and interaction states.
+*   **Robust Asset Management:** An asynchronous asset loading and processing pipeline that handles diverse asset types like glTF models, images, fonts, and audio, with hot-reloading support.
+*   **Cross-Platform Support:** Ready for deployment on desktop, web (WASM), and mobile (Android, iOS) platforms, enabling broad reach for your projects.
+*   **Ergonomic Input Handling:** Intuitive APIs for keyboard, mouse, gamepad, and touch input, making game controls seamless.
+*   **Diagnostic & Debugging Tools:** Integrated tools for performance monitoring (FPS overlay), visual gizmos, and detailed logging to streamline development.
+*   **Modular & Extensible:** Designed as a collection of crates, allowing developers to pick and choose components or extend the engine's functionality with custom plugins and systems.
 
 ## Who is this for?
-Bevy is ideal for:
-*   **Game Developers:** Seeking a modern, high-performance, and open-source game engine.
-*   **Rust Enthusiasts:** Looking to apply their Rust skills to game development and contribute to a rapidly growing ecosystem.
-*   **Engine Developers:** Interested in a modular and well-architected codebase for learning or building upon.
-*   **Innovators:** Who want full control over their game logic and rendering pipeline without fighting rigid abstractions.
+Bevy is ideal for game developers, hobbyists, and engine enthusiasts looking for a performant, modern, and open-source game engine. If you appreciate Rust's safety and speed, desire a data-driven architecture, and value modularity and community-driven development, Bevy is for you.
 
 ## Technology Stack & Architecture
-*   **Language:** Rust
-*   **Rendering Backend:** WGPU (WebGPU implementation for cross-platform GPU access)
-*   **Core Architecture:** Custom Bevy ECS (Entity Component System)
-*   **Input Handling:** Winit (windowing), Gilrs (gamepads)
-*   **Asset Management:** Custom asynchronous asset pipeline
-*   **Platforms:** Windows, macOS, Linux, Android, Web (WASM)
+Bevy is written entirely in **Rust**, a language renowned for its performance, memory safety, and concurrency. The rendering backend leverages **WebGPU** through `wgpu`, supporting modern graphics APIs across platforms. Shaders are primarily written in **WGSL** (WebGPU Shading Language), with support for **GLSL**. Asset formats like **glTF** are first-class citizens for 3D models. The engine's core architecture is a highly concurrent and flexible **Entity Component System (ECS)**, which is exposed directly to users, promoting efficient and organized game logic. The engine's functionality is distributed across many modular crates, promoting reusability and maintainability.
 
 ## 📊 Architecture & Database Schema
 
-The Bevy Engine operates on a powerful, data-driven architecture centered around its custom Entity Component System (ECS). This high-level diagram illustrates the primary flow and interaction between the engine's core components during its lifecycle:
-
 ```mermaid
 graph TD
-    A[Bevy Application] --> B(Plugins: Extensible Modules);
-    B --> C{Core Setup: Initialize ECS World & Schedules};
-    C --> D[Game Loop Execution];
-
-    subgraph Game Loop Stages
-        D --> E(Input Processing & Event Handling);
-        E -- Modifies/Reads --> F[ECS World: Entities, Components, Resources];
-        F -- Data Synchronization --> G[Render World (GPU-ready Data)];
-        G --> H(Rendering Backend: WGPU);
-        H -- Presents Frame --> I[Display Output];
+    subgraph Bevy Application
+        A[Bevy App] --> B(Plugin Group);
+        B --> C[Schedules & Stages];
+        C --> D{Systems & Queries};
     end
 
-    J[Asset Server] -- Loads Assets --> F;
-    K[User Input] --> E;
-    F -- Systems Operate On --> E;
+    subgraph Core Engine Crates
+        D --> E[ECS World];
+        D --> F[Rendering Pipeline];
+        D --> G[Asset Server];
+        D --> H[Input Manager];
+        D --> I[Audio Engine];
+        D --> J[UI Layout];
+        F --> K[Meshes & Materials];
+        F --> L[Images & Textures];
+        G --> K;
+        G --> L;
+        G --> M[Fonts];
+        H --> J;
+    end
+
+    A -- "Initializes & Runs" --> C;
+    C -- "Processes Data" --> D;
+    D -- "Interacts With" --> E;
+    D -- "Generates/Updates" --> F;
+    D -- "Loads/Manages" --> G;
+    D -- "Reads Events" --> H;
+    D -- "Plays Sounds" --> I;
+    D -- "Updates Elements" --> J;
+    F -- "Uses" --> K & L;
+    J -- "Renders via" --> F;
 ```
 
 ## ⚡ Quick Start Guide
-To get started with the Bevy Engine, ensure you have a recent version of Rust installed.
 
-1.  **Clone the Repository:**
-    ```bash
-    git clone https://github.com/grewal16/bevy.git
-    cd bevy
-    ```
+To get started with Bevy, ensure you have Rust installed. Then, clone the repository:
 
-2.  **Run an Example (e.g., `hello_world`):**
-    ```bash
-    cargo run --example hello_world
-    ```
+```bash
+git clone https://github.com/grewal16/bevy.git
+cd bevy
+```
 
-    To run a specific example with all default features (highly recommended for beginners):
-    ```bash
-    cargo run --example <example_name> --features bevy_winit
-    ```
-    Replace `<example_name>` with any example found in the `examples/` directory (e.g., `3d_scene`, `sprite_animation`, `button`).
+You can run any of the examples directly from the `examples` directory. For instance, to see a basic 3D scene:
 
-3.  **Build Your Own Project:**
-    Start by creating a new Rust project:
-    ```bash
-    cargo new my_bevy_game
-    cd my_bevy_game
-    ```
-    Add `bevy` as a dependency in your `Cargo.toml`:
-    ```toml
-    # Cargo.toml
-    [dependencies]
-    bevy = "0.14" # Use the latest version available
-    ```
-    Then, write your Bevy application in `src/main.rs`.
+```bash
+cargo run --example 3d_scene
+```
 
-    ```rust
-    // src/main.rs
-    use bevy::prelude::*;
+Or a 2D sprite animation:
 
-    fn main() {
-        App::new()
-            .add_plugins(DefaultPlugins)
-            .add_systems(Startup, setup)
-            .run();
-    }
+```bash
+cargo run --example sprite_animation
+```
 
-    fn setup(mut commands: Commands) {
-        commands.spawn(Camera2dBundle::default());
-        commands.spawn(SpriteBundle {
-            sprite: Sprite {
-                color: Color::rgb(0.7, 0.7, 0.7),
-                custom_size: Some(Vec2::new(100.0, 100.0)),
-                ..default()
-            },
-            ..default()
-        });
-    }
-    ```
-    Run your game:
-    ```bash
-    cargo run
-    ```
+Explore the `examples/` directory for a wide range of functionalities and learn by doing!
 
 ## 📜 License
-This project is dual-licensed under both the Apache 2.0 License and the MIT License. You may choose to use it under either license.
-
-See [LICENSE-APACHE](LICENSE-APACHE) and [LICENSE-MIT](LICENSE-MIT) for more information.
+Bevy Engine is dual-licensed under both the **MIT License** and **Apache License (Version 2.0)**. You may choose either license to use this project. For full details, please see the [LICENSE-MIT](./LICENSE-MIT) and [LICENSE-APACHE](./LICENSE-APACHE) files in the repository root.
