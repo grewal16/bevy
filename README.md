@@ -1,3 +1,4 @@
+```markdown
 # 🚀 Bevy Engine
 
 <p align="center"><img src="./assets/branding/banner.png" alt="Bevy Engine Banner" width="500"></p>
@@ -10,174 +11,108 @@
 </p>
 
 ## Short Description
-Bevy is a refreshingly simple and powerful data-driven game engine and app framework built in Rust. It's designed for maximum developer productivity, providing a complete feature set for 2D and 3D applications, from high-performance rendering to robust asset management and intuitive UI. Bevy empowers developers to build ambitious projects with speed and ease, all while leveraging Rust's renowned performance and safety.
+Bevy is a refreshingly simple, yet powerful, data-driven game engine written in Rust. Designed for performance, modularity, and rapid iteration, Bevy empowers developers to create incredible games and interactive applications across all major platforms with ease and elegance.
 
 ## 🛡️ Project Health & Status
-This project is in active and robust development, showcasing exceptional health and stability. Its continuous integration is meticulously managed through comprehensive GitHub Actions workflows, covering automated testing, static analysis (CodeQL), and dependency management (Dependabot). The presence of extensive benchmarks and compile-fail tests underscores a commitment to both performance and code correctness, making it a highly reliable and production-ready framework.
+Bevy is under **active, continuous development** by a vibrant community. Robust CI/CD pipelines (`.github/workflows/`) ensure high code quality, stability, and broad platform compatibility, while extensive benchmarking (`benches/`) drives relentless performance optimization. Bevy is battle-tested and production-ready for your next project.
 
 ## ✨ Key Features
-*   **Data-Driven ECS:** A custom, high-performance, and incredibly modular Entity Component System (ECS) at its core, enabling scalable and organized game logic.
-*   **Stunning 2D/3D Graphics:** Supports Physically Based Rendering (PBR), advanced post-processing effects (Bloom, SSAO, SSR, Depth of Field, Anti-Aliasing with TAA, FXAA, SMAA, and DLSS integration), realistic atmospheric scattering, volumetric fog, and precise shadow mapping.
-*   **Comprehensive Animation:** Features skeletal animation, flexible animation graphs for complex state machines, and morph targets for dynamic mesh deformations, all integrated with powerful easing functions.
-*   **Multi-Platform Reach:** Seamlessly deployable across native platforms (Windows, Linux, macOS), mobile devices (Android, iOS), and the web (WebAssembly), maximizing your audience.
-*   **Responsive UI System:** Build rich user interfaces with a flexible layout engine, built-in widgets, robust focus management, gradients, and customizable box shadows.
-*   **Advanced Input Handling:** Full support for keyboard, mouse, gamepad (via Gilrs), and touch input, ensuring a broad range of interaction possibilities.
-*   **Efficient Asset Pipeline:** A flexible asset loading and management system featuring hot-reloading for rapid iteration, custom asset readers and processors, and first-class GLTF support.
-*   **Modular & Extensible:** Built as a collection of composable plugins and crates, allowing developers to pick and choose components and easily extend the engine.
-*   **Powerful Dev Tools:** Includes an FPS overlay, advanced profiling tools, and an interactive scene viewer to streamline debugging and optimization.
-*   **Experimental Ray Tracing:** Explores real-time ray tracing capabilities with the Solari plugin for cutting-edge visual effects.
+*   **Data-Driven ECS:** At its core, Bevy leverages a custom, highly performant Entity Component System (ECS) for unmatched flexibility and scalability.
+*   **Powerful 2D & 3D Renderer:** A modern, PBR-based graphics pipeline built on WGPU, featuring advanced lighting, shadows, bloom, anti-aliasing (FXAA, TAA, DLSS), deferred rendering, screen-space reflections (SSR), and experimental real-time ray tracing (Solari RTGI/ReSTIR DI).
+*   **Flexible UI System:** Declarative UI with CSS-like styling, supporting gradients, box shadows, dynamic layouts, and interactive widgets.
+*   **Comprehensive Asset Management:** Robust asynchronous loading and hot-reloading for diverse assets, including GLTF models, images (KTX2, DDS, HDR), fonts, scenes, shaders (WGSL, GLSL), and audio (OGG).
+*   **Cross-Platform Support:** Seamlessly target Windows, macOS, Linux, Web (WebAssembly), and Android from a single codebase.
+*   **Animation & Input:** Integrated animation graphs for dynamic 2D/3D content and extensive input handling for keyboard, mouse, gamepad (Gilrs), and touch.
+*   **Developer-Friendly Tools:** Built-in diagnostics, FPS overlay, a powerful gizmo system, and custom asset processing for streamlined development and debugging.
+*   **Mathematical Foundations:** A comprehensive and optimized math library (`glam`) covering geometry, transformations, curves, and bounding volumes.
 
 ## Who is this for?
-Bevy is ideal for Rust developers and teams aiming to create high-performance 2D and 3D games, interactive applications, or complex simulations. Its data-driven design appeals to those who value performance, modularity, and a clean architecture. Whether you're building a small indie game or a large-scale application, Bevy provides the tools and flexibility to bring your vision to life.
+*   **Game Developers:** Seeking a high-performance, flexible, and rapidly iterating engine written in Rust.
+*   **Graphics Programmers:** Interested in a modern, low-level rendering framework for custom graphics applications and research.
+*   **Rust Enthusiasts:** Looking for a large, active, and well-maintained Rust project to contribute to or learn from.
+*   **Engine Hackers:** Desiring a modular engine that allows deep customization and extension at all levels.
 
 ## Technology Stack & Architecture
-*   **Core Language:** Rust (`.rs` files, `Cargo.toml`)
-*   **Engine Core:** Bevy's custom Entity Component System (ECS), Application, Transform, Asset, Input, Window, Time, Log, and Diagnostic crates.
-*   **Rendering Backend:** WGPU (a Rust implementation of WebGPU), allowing for high-performance, cross-platform graphics.
-*   **Shading Languages:** WGSL (WebGPU Shading Language) for modern GPU programming, with support for GLSL and WSL.
-*   **Windowing & Events:** Winit (for native platforms) and WebSys (for WebAssembly).
-*   **Gamepad Support:** Gilrs library for comprehensive gamepad input.
-*   **UI Layout Engine:** Integrates `taffy` for a powerful, flexible, and performant UI layout system.
-*   **Asset Formats:** Supports a wide array including GLTF/GLB (3D models), PNG, JPG, HDR, EXR, KTX2 (images), OGG (audio), TTF (fonts), and RON (custom data serialization).
-*   **Asynchronous Tasks:** Leverages Bevy's integrated task pool for efficient parallel processing and I/O.
-*   **Build & CI:** Utilizes Cargo for dependency management and building, and relies on GitHub Actions for robust Continuous Integration and deployment.
-*   **Target Platforms:** Designed for cross-platform compatibility, including Windows, Linux, macOS, Android, and WebAssembly.
+*   **Core Language:** Rust
+*   **Entity Component System (ECS):** Bevy's custom-built ECS for high performance and parallelism.
+*   **Rendering Backend:** WGPU (a Rust-native implementation of WebGPU) provides cross-platform GPU abstraction.
+*   **Shader Language:** WGSL (WebGPU Shading Language) and GLSL.
+*   **Build System:** Cargo (Rust's package manager and build tool).
+*   **Platform Integration:** Winit (native windowing), WebAssembly (for web targets), Android NDK (for Android targets).
+*   **Key Libraries:** `glam` for efficient graphics math, `rodio` for audio playback, and `gilrs` for gamepad support.
 
 ## 📊 Architecture & Database Schema
-
-The Bevy engine architecture is highly modular and data-driven, primarily operating across a main thread (App/ECS) and a dedicated render thread (GPU).
+The Bevy Engine is designed around a data-driven, modular architecture. The core loop, powered by its ECS, orchestrates systems that operate on components and resources.
 
 ```mermaid
 graph TD
-    subgraph User Input & OS Events
-        A["OS/Platform Events (Winit)"] --> B{{"Input Events (Keyboard, Mouse, Gamepad, Touch)"}};
-        B --> BevyInput["Bevy Input Plugin"];
-    end
-
-    subgraph Bevy Core Loop (Main Thread)
-        C_START["App Start"] --> C1["Startup Schedule"];
-        C1 --> C2["Main Schedule (e.g., Update, FixedUpdate)"];
-        subgraph ECS Processing
-            D["ECS World (Entities, Components, Resources)"] --> E["Systems & Business Logic"];
-            E --> F["Commands (Deferred Operations)"];
-            F --> D;
+    A["User Input / External Event"] --> B{Bevy App};
+    subgraph Bevy Engine Core
+        B --> C[Scheduler: FixedUpdate, Update, PostUpdate...];
+        C --> D{Plugins & Systems};
+        subgraph ECS (Entity Component System)
+            D -- Reads/Writes --> E[Resources];
+            D -- Queries --> F[Components];
+            F -- Attached to --> G[Entities];
+            D -- Triggers --> H[Events];
         end
-        C2 --> E;
-        BevyInput --> C2;
-        BevyAsset["Asset Plugin"] --> C2;
-        BevyAudio["Audio Plugin"] --> C2;
-        BevyUI["UI Plugin"] --> C2;
-        BevyWindow["Window Plugin"] --> C2;
-        E_TASKS["Bevy Task Pool (Async)"] --> E;
+        H --> C;
     end
-
-    subgraph Render Pipeline (Render Thread)
-        R_EXTRACT("Render Extraction (From ECS)") --> R_PREP("Render Asset Preparation");
-        R_PREP --> R_QUEUE("Draw Command Queueing");
-        R_QUEUE --> R_PHASES("Render Phases (Opaque, Transparent, UI, Post-Process)");
-        R_PHASES --> R_GPU("GPU Execution (WGPU)");
-        R_GPU --> R_PRESENT("Present to Window/Framebuffer");
-        C2 -- "Renderable Data" --> R_EXTRACT;
-        BevyWindow --> R_PRESENT;
-    end
-
-    style C_START fill:#add8e6,stroke:#333,stroke-width:2px;
-    style C_END fill:#add8e6,stroke:#333,stroke-width:2px;
-    style R_PRESENT fill:#add8e6,stroke:#333,stroke-width:2px;
-    classDef plugin fill:#90ee90,stroke:#333,stroke-width:2px;
-    class BevyInput,BevyAsset,BevyAudio,BevyUI,BevyWindow,BevyRender plugin;
+    B --> I[Render World Synchronization];
+    I --> J[Rendering Backend (WGPU)];
+    J --> K[Display Output];
 ```
 
 ## ⚙️ Configuration & Deployment
-Bevy projects are built using `cargo`. For examples, navigate to the project root and run `cargo run --example <example_name>`.
-
-*   **Native Development:**
-    *   Ensure Rust is installed via `rustup`.
-    *   Fast builds can be configured in `.cargo/config_fast_builds.toml`.
-*   **Mobile (Android):**
-    *   Requires Android NDK and `cargo-apk`.
-    *   Build with `cargo apk --release` from the example directory.
-*   **Mobile (iOS):**
-    *   Utilizes Xcode projects for iOS deployment (e.g., `bevy_mobile_example.xcodeproj`).
-    *   The `build_rust_deps.sh` script assists in compiling Rust dependencies for iOS.
-*   **Web (WASM):**
-    *   Requires `wasm-bindgen` and `trunk` for deployment.
-    *   Example setup can be found under `examples/wasm`.
-*   **CI/CD:** Leverages GitHub Actions (`.github/workflows/`) for automated build, test, and deployment processes.
+Bevy offers flexible configuration and deployment options:
+*   **Rust Toolchain:** Requires a stable or nightly Rust toolchain, managed via `rustup`.
+*   **Custom Cargo Configuration:** Optimized `.cargo/config_fast_builds.toml` is provided for faster compilation in development.
+*   **CI/CD:** Automated builds, tests, and deployment checks are managed through GitHub Actions, including specific workflows for mobile and WebAssembly examples.
+*   **Platform-Specific Builds:**
+    *   **Android:** Use `cargo-apk` alongside the Android NDK. Refer to `examples/mobile` for setup and build instructions.
+    *   **WebAssembly:** Compile with `wasm-bindgen` and serve with a basic web server. Detailed setup can be found in `examples/wasm`.
 
 ## ⚡ Quick Start Guide
-
-To get started with Bevy, ensure you have Rust installed via [rustup.rs](https://rustup.rs/).
-
-1.  **Clone the Bevy repository:**
+1.  **Install Rust:** Ensure you have Rust installed by following the instructions at [rustup.rs](https://rustup.rs/).
+2.  **Clone the Repository:**
     ```bash
     git clone https://github.com/grewal16/bevy.git
     cd bevy
     ```
-
-2.  **Run an example:**
+3.  **Run a Bevy Example:** Explore the diverse capabilities of Bevy by running any of the examples:
     ```bash
-    cargo run --example breakout
+    cargo run --example 3d_scene
+    # Or, for 2D:
+    cargo run --example sprite_animation
+    # And for UI:
+    cargo run --example button
     ```
-    This will compile and run the "breakout" game example. You can find many more examples in the `examples/` directory.
-
-3.  **Start your own Bevy project:**
-    Create a new Rust project:
+    (Many more examples are available in the `examples/` directory!)
+4.  **Start Your Own Project:** Create a new Rust project and add `bevy` as a dependency:
     ```bash
-    cargo new --bin my_bevy_game
+    cargo new my_bevy_game
     cd my_bevy_game
+    # Add bevy dependency to Cargo.toml
     ```
-    Add Bevy as a dependency to your `Cargo.toml`:
-    ```toml
-    # Cargo.toml
-    [dependencies]
-    bevy = "0.13" # Use the latest stable Bevy version
-    ```
-    Create a simple Bevy application in `src/main.rs`:
+    In `src/main.rs`, get started with a minimal app:
     ```rust
-    // src/main.rs
     use bevy::prelude::*;
 
     fn main() {
         App::new()
             .add_plugins(DefaultPlugins)
-            .add_systems(Startup, setup)
-            .add_systems(Update, greet_people)
+            .add_systems(Startup, setup_camera)
             .run();
     }
 
-    fn setup(mut commands: Commands) {
+    fn setup_camera(mut commands: Commands) {
         commands.spawn(Camera2dBundle::default());
-        commands.spawn(
-            TextBundle::from_section(
-                "Hello, Bevy!",
-                TextStyle {
-                    font_size: 100.0,
-                    color: Color::WHITE,
-                    ..default()
-                },
-            )
-            .with_text_alignment(TextAlignment::Center)
-            .with_style(Style {
-                position_type: PositionType::Absolute,
-                left: Val::Percent(50.),
-                top: Val::Percent(50.),
-                ..default()
-            }),
-        );
-    }
-
-    fn greet_people() {
-        // This system could do something in a loop, but for a minimal example, it just exists.
     }
     ```
-    Run your new Bevy application:
-    ```bash
-    cargo run
-    ```
+5.  **For Web/Mobile Deployment:** Consult the comprehensive guides within the `examples/mobile` and `examples/wasm` directories for platform-specific setup and deployment instructions.
 
 ## 📜 License
-This project is dual-licensed under both the MIT License and the Apache License, Version 2.0. You may choose either license to govern your use of this software.
-
-See [LICENSE-MIT](LICENSE-MIT) for details on the MIT License.
-See [LICENSE-APACHE](LICENSE-APACHE) for details on the Apache License, Version 2.0.
+This project is dual-licensed under both the **MIT License** and **Apache License (Version 2.0)**. You may choose either license to use this project.
+*   [LICENSE-MIT](./LICENSE-MIT)
+*   [LICENSE-APACHE](./LICENSE-APACHE)
+```
